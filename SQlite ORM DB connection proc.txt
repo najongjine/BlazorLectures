@@ -1,0 +1,20 @@
+console 에서 dotnet tool install --global dotnet-ef
+
+visual studio 2019 오른쪽 solution explorer 에서
+Server 우클릭-> Manage Nuget Packages -> 
+Microsoft.EntityFrameworkCore,
+Microsoft.EntityFrameworkCore.Design,
+Microsoft.EntityFrameworkCore.Sqlite
+
+
+저것들을 설치한 상태에서는 DbContext 라는 클래스를 inherit 할수있는 상태가 되있음
+
+visual studio 2019 오른쪽 solution explorer 에서
+server 우클릭 -> Data라는 폴더 만듬 -> DataContext.cs 만듬
+
+
+startup.cs 에서
+using BlazorBattles.Server.Data;  Data 폴더에 만든 DataContext를 import 함
+ConfigureServices 함수 안에서
+services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+이것을 넣어주면 DB 커넥션 설정 끝
